@@ -1,0 +1,3 @@
+image: golang-1.8.1:alpine
+script:
+  - echo hello world
