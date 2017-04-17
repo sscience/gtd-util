@@ -1,6 +1,6 @@
 build:
   test:
-    image: golang-1.8.1:alpine
+    image: golang:1.8.1-alpine
 
     environment:
       ENV: CI
