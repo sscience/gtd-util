@@ -1,6 +1,6 @@
-web:
+api:
   restart: always
-  build: ./web
+  build: ./api
   expose:
     - "8080"
   ports:
@@ -11,30 +11,30 @@ web:
     - /usr/src/app/static
   env_file: .env
   # entrypoint: ./web/entry-point.sh
-  # command: python -m SimpleHTTPServer
-  command: /usr/local/bin/gunicorn -w 2 -b :8080 app:app
+  command: python -m SimpleHTTPServer
+  # command: /usr/local/bin/gunicorn -w 2 -b :8080 app:api.app
 
-# nginx:
-#   restart: always
-#   build: ./nginx/
-#   ports:
-#     - "80:80"
-#   volumes:
-#     - /www/static
-#   volumes_from:
-#     - web
-#   links:
-#     - web:web
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+  volumes:
+    - /www/static
+  volumes_from:
+    - api
+  links:
+    - api:api
 
 data:
-  image: postgres:latest
+  image: postgres:9.6-alpine
   volumes:
     - /var/lib/postgresql
   command: "true"
 
 postgres:
   restart: always
-  image: postgres:latest
+  image: postgres:9.6-alpine
   volumes_from:
     - data
   ports:
