@@ -26,3 +26,19 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: api-token
+
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: {{.app}}-{{.env}}
+
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{.app}}
+    env: {{.env}}
+  ports:
+    - port: 80
+      targetPort: 8000
+protocol: TCP
