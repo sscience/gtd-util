@@ -1,13 +1,13 @@
-# build:
-#   test:
-#     image: golang:1.8.1-alpine
-#     environment:
-#       ENV: CI
-#     commands:
-#       - echo "this is a go app  "
-#     when:
-#       event:
-#         - push
+build:
+  test:
+    image: golang:1.8.1-alpine
+    environment:
+      ENV: CI
+    commands:
+      - echo "this is a go app  "
+    when:
+      event:
+        - push
 
 # publish:
 #   gcr:
@@ -27,10 +27,15 @@
 debug: true
 deploy:
   gke:
-    plugin_filter: nytimes
-    image: nytimes/drone-gke:latest
+    image: nytimes/drone-gke
+    zone: us-east1-c
+    cluster: gtd-util
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
-   when:
-    event: push
+    vars:
+      image: inspiring-cat-165403/nginx:$$COMMIT
+      app: gtd-util
+      env: prd
+    when:
+      event: push
