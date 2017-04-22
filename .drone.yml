@@ -11,7 +11,7 @@ build:
 
 deploy:
   ssh:
-    host: 127.0.0.1
+    host: localhost
     user: root
     port: 22
     commands:
