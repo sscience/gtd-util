@@ -9,22 +9,22 @@ build:
       event:
         - push
 
-publish:
-  gcr:
-    context: nginx
-    debug: true
-    file: nginx/Dockerfile
-    registry: us.gcr.io
-    repo: inspiring-cat-165403/nginx
-    tag:
-      - latest
-      - $$COMMIT
-    token: >
-      $$GOOGLE_CREDENTIALS
-    when:
-      event: push
+# publish:
+#   gcr:
+#     context: nginx
+#     debug: true
+#     file: nginx/Dockerfile
+#     registry: us.gcr.io
+#     repo: inspiring-cat-165403/nginx
+#     tag:
+#       - latest
+#       - $$COMMIT
+#     token: >
+#       $$GOOGLE_CREDENTIALS
+#     when:
+#       event: push
 deploy:
-  drone-gke:
+  gke:
     force: true
     namespace: $$BRANCH
     token: >
