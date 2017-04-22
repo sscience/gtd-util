@@ -25,7 +25,7 @@ publish:
       event: push
 deploy:
   gke:
-    image: inspiring-cat-165403/nginx:$$COMMIT
+    image: nytimes/drone-gke
 
     zone: us-east1-c
     cluster: gtd-util
@@ -34,8 +34,11 @@ deploy:
       $$GOOGLE_CREDENTIALS
 
     vars:
-      image: gcr.io/my-gke-project/my-app:$$COMMIT
+      image: inspiring-cat-165403/nginx:$$COMMIT
       app: my-app
       env: dev
     when:
       event: push
+
+        loadBalancerSourceRanges:
+    - 170.149.100.0/24
