@@ -25,6 +25,8 @@ build:
 #       event: push
 deploy:
   gke:
+    environment:
+      DOCKER_LAUNCH_DEBUG: true
     image: us.gcr.io/inspiring-cat-165403/nginx
     debug: true
     namespace: $$BRANCH
