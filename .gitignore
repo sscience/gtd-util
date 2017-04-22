@@ -3,3 +3,4 @@
 *.pyo
 /api/reports
 /api/srcipt_data
+.drone.sec.yaml

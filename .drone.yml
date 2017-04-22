@@ -1,13 +1,26 @@
 build:
   test:
     image: golang:1.8.1-alpine
-
     environment:
       ENV: CI
-
     commands:
-      - echo "this is a goapp"
-      # - go test
+      - echo "this is a go app  "
     when:
       event:
         - push
+
+
+publish:
+  gcr:
+    storage_driver: overlay
+
+    registry: us.gcr.io
+    repo: inspiring-cat-165403/image-name
+    tag:
+      - latest
+      - $$COMMIT
+    token: >
+      $$GOOGLE_CREDENTIALS
+    when:
+      branch: master
+      event: push
