@@ -15,7 +15,6 @@ publish:
     context: nginx
     debug: true
     file: nginx/Dockerfile
-    storage_driver: overlay
     registry: us.gcr.io
     repo: inspiring-cat-165403/nginx
     tag:
