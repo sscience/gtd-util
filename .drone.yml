@@ -26,17 +26,6 @@ publish:
 deploy:
   gke:
     image: nytimes/drone-gke
-
-
-    zone: us-east1-c
-    cluster: gtd-util
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
-
-    vars:
-      image: inspiring-cat-165403/nginx:$$COMMIT
-      app: gtd-util
-      env: prd
-    when:
-      event: push
