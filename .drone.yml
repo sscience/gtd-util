@@ -35,10 +35,7 @@ deploy:
 
     vars:
       image: inspiring-cat-165403/nginx:$$COMMIT
-      app: my-app
-      env: dev
+      app: gtd-util
+      env: prd
     when:
       event: push
-
-        loadBalancerSourceRanges:
-    - 170.149.100.0/24
