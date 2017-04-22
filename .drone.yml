@@ -24,8 +24,8 @@ publish:
     when:
       event: push
 deploy:
-  gke:
-    image: nytimes/drone-gke
+  drone-gke:
+    force: true
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
