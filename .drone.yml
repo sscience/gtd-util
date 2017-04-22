@@ -32,6 +32,7 @@ deploy:
     zone: us-east1-c
     cluster: gtd-util
     namespace: master
+    verbose: true
     token: >
       $$GOOGLE_CREDENTIALS
     vars:
