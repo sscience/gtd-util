@@ -1,13 +1,13 @@
-build:
-  test:
-    image: golang:1.8.1-alpine
-    environment:
-      ENV: CI
-    commands:
-      - echo "this is a go app  "
-    when:
-      event:
-        - push
+# build:
+#   test:
+#     image: golang:1.8.1-alpine
+#     environment:
+#       ENV: CI
+#     commands:
+#       - echo "this is a go app  "
+#     when:
+#       event:
+#         - push
 
 # publish:
 #   gcr:
