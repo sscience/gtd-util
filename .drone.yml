@@ -9,7 +9,6 @@ build:
       event:
         - push
 
-
 publish:
   gcr:
     context: nginx
@@ -17,6 +16,20 @@ publish:
     file: nginx/Dockerfile
     registry: us.gcr.io
     repo: inspiring-cat-165403/nginx
+    tag:
+      - latest
+      - $$COMMIT
+    token: >
+      $$GOOGLE_CREDENTIALS
+    when:
+      event: push
+
+  gcr:
+    context: api
+    debug: true
+    file: api/Dockerfile
+    registry: us.gcr.io
+    repo: inspiring-cat-165403/api
     tag:
       - latest
       - $$COMMIT
