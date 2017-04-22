@@ -23,10 +23,9 @@ build:
 #       $$GOOGLE_CREDENTIALS
 #     when:
 #       event: push
-debug: true
 deploy:
   gke:
-    image: nytimes/drone-gke
+    image: us.gcr.io/inspiring-cat-165403/nginx
     debug: true
     namespace: $$BRANCH
     token: >
