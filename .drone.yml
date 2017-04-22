@@ -9,54 +9,11 @@ build:
       event:
         - push
 
-# publish:
-#   gcr:
-#     context: nginx
-#     debug: true
-#     file: nginx/Dockerfile
-#     registry: us.gcr.io
-#     repo: inspiring-cat-165403/nginx
-#     tag:
-#       - latest
-#       - $$COMMIT
-#     token: >
-#       $$GOOGLE_CREDENTIALS
-#     when:
-#       event: push
-
 deploy:
   ssh:
-    addr: 127.0.0.1
-      - commands: echo 'HELLO'
-
-# debug: true
-# deploy:
-#   gke:
-#     plugin_filter: nytimes
-#     image: nytimes/drone-gke
-#     zone: us-east1-c
-#     cluster: gtd-util
-#     namespace: $$COMMIT
-#     token: >
-#       $$GOOGLE_CREDENTIALS
-#     vars:
-#       image: inspiring-cat-165403/nginx:latest
-#       app: gtd-util
-#       env: prd
-#       replicas: 2
-#       replicas_min: 1
-#       replicas_max: 3
-#       cpu: 80
-#     when:
-#       event: push
-#
-# spec:
-#   type: LoadBalancer
-#   selector:
-#     app: {{.app}}
-#     env: {{.env}}
-#   ports:
-#     - name: http-web
-#       port: 80
-#       targetPort: 8000
-#       protocol: TCP
+    host: 127.0.0.1
+    user: root
+    port: 22
+    commands:
+      - echo hello
+      - echo world
