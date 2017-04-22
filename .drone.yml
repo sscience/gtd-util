@@ -12,15 +12,15 @@ build:
 
 publish:
   gcr:
+    context: python_app
+    file: nginx/Dockerfile
     storage_driver: overlay
-
     registry: us.gcr.io
-    repo: inspiring-cat-165403/image-name
+    repo: inspiring-cat-165403/nginx
     tag:
       - latest
       - $$COMMIT
     token: >
       $$GOOGLE_CREDENTIALS
     when:
-      branch: master
       event: push
