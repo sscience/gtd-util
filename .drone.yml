@@ -30,7 +30,7 @@ environment:
 debug: true
 deploy:
   gke:
-    image: us.gcr.io/inspiring-cat-165403/nginx
+    image: nytimes/drone-gke:latest
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
