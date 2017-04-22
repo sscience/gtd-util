@@ -30,7 +30,11 @@ environment:
 debug: true
 deploy:
   gke:
-    image: nytimes/drone-gke:latest
+    # image: plugin/docker
+    # repo: foo
+    # image: nytimes/drone-gke:latest
+    image: drone-gke
+    repo: nytimes
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
