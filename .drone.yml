@@ -32,3 +32,5 @@ deploy:
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
+   when:
+    event: push
