@@ -24,17 +24,10 @@ build:
 #     when:
 #       event: push
 
-
-environment:
-  DOCKER_LAUNCH_DEBUG: true
 debug: true
 deploy:
   gke:
-    image: plugin/docker
-    # repo: foo
-    # image: nytimes/drone-gke:latest
-    # image: drone-gke
-    repo: nytimes
+    image: nytimes/drone-gke:latest
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
