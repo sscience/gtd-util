@@ -25,7 +25,8 @@ publish:
       event: push
 deploy:
   gke:
-    image: golang:1.8.1-alpine
+    image: nytimes/drone-gke
+
 
     zone: us-east1-c
     cluster: gtd-util
