@@ -23,12 +23,14 @@ build:
 #       $$GOOGLE_CREDENTIALS
 #     when:
 #       event: push
+
+
+environment:
+  DOCKER_LAUNCH_DEBUG: true
+debug: true
 deploy:
   gke:
-    environment:
-      DOCKER_LAUNCH_DEBUG: true
     image: us.gcr.io/inspiring-cat-165403/nginx
-    debug: true
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
