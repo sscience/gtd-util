@@ -27,6 +27,7 @@ build:
 debug: true
 deploy:
   gke:
+    plugin_filter: nytimes
     image: nytimes/drone-gke
     zone: us-east1-c
     cluster: gtd-util
