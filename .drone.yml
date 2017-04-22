@@ -26,8 +26,8 @@ build:
 debug: true
 deploy:
   gke:
-    image: nytimes/drone-gke:show-cmd
-    force: true
+    image: nytimes/drone-gke
+    debug: true
     namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
