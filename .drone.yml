@@ -23,17 +23,19 @@ publish:
       $$GOOGLE_CREDENTIALS
     when:
       event: push
+deploy:
+  gke:
+    image: inspiring-cat-165403/nginx:$$COMMIT
 
-  gcr:
-    context: api
-    debug: true
-    file: api/Dockerfile
-    registry: us.gcr.io
-    repo: inspiring-cat-165403/api
-    tag:
-      - latest
-      - $$COMMIT
+    zone: us-east1-c
+    cluster: gtd-util
+    namespace: $$BRANCH
     token: >
       $$GOOGLE_CREDENTIALS
+
+    vars:
+      image: gcr.io/my-gke-project/my-app:$$COMMIT
+      app: my-app
+      env: dev
     when:
       event: push
