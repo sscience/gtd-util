@@ -1,34 +1,44 @@
-
-kind: Deployment
+# NOTE: this file is parsed as a golang template.
+---
 apiVersion: extensions/v1beta1
+kind: Deployment
 
 metadata:
   name: {{.app}}-{{.env}}
 
 spec:
-  replicas: 3
+  replicas: {{.replicas}}
+
   template:
     metadata:
       labels:
         app: {{.app}}
         env: {{.env}}
+
     spec:
       containers:
-        - name: app
+        - name: application
           image: {{.image}}
           ports:
             - containerPort: 8000
-          env:
-            - name: APP_NAME
-              value: {{.app}}
-            - name: API_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: api-token
 
-kind: Service
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+
+metadata:
+  name: {{.app}}-{{.env}}
+
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{.app}}-{{.env}}
+  minReplicas: {{.replicas_min}}
+  maxReplicas: {{.replicas_max}}
+  targetCPUUtilizationPercentage: {{.cpu}}
+---
 apiVersion: v1
+kind: Service
 
 metadata:
   name: {{.app}}-{{.env}}
@@ -41,3 +51,4 @@ spec:
   ports:
     - port: 80
       targetPort: 8000
+      protocol: TCP
