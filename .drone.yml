@@ -30,10 +30,10 @@ environment:
 debug: true
 deploy:
   gke:
-    # image: plugin/docker
+    image: plugin/docker
     # repo: foo
     # image: nytimes/drone-gke:latest
-    image: drone-gke
+    # image: drone-gke
     repo: nytimes
     namespace: $$BRANCH
     token: >
