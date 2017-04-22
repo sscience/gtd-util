@@ -12,7 +12,8 @@ build:
 
 publish:
   gcr:
-    context: python_app
+    context: nginx
+    debug: true
     file: nginx/Dockerfile
     storage_driver: overlay
     registry: us.gcr.io
