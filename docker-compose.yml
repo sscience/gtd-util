@@ -1,41 +1,9 @@
-api:
-  restart: always
-  build: ./api
+webpack:
+  build: ./frontend
   expose:
-    - "8080"
+    - "3000"
   ports:
-    - "8080:8080"
-  links:
-    - postgres:postgres
+    - "3000:3000"
   volumes:
-    - /usr/src/app/static
-  env_file: .env
-  # entrypoint: ./web/entry-point.sh
-  command: python -m SimpleHTTPServer
-  # command: /usr/local/bin/gunicorn -w 2 -b :8080 app:api.app
-
-nginx:
-  restart: always
-  build: ./nginx/
-  ports:
-    - "80:80"
-  volumes:
-    - /www/static
-  volumes_from:
-    - api
-  links:
-    - api:api
-
-data:
-  image: postgres:9.6-alpine
-  volumes:
-    - /var/lib/postgresql
-  command: "true"
-
-postgres:
-  restart: always
-  image: postgres:9.6-alpine
-  volumes_from:
-    - data
-  ports:
-    - "5454:5454"
+    - ./frontend:/watcher-app
+  entrypoint: /watcher-app/watch.sh

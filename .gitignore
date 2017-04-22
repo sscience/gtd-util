@@ -4,3 +4,4 @@
 /api/reports
 /api/srcipt_data
 .drone.sec.yaml
+frontend/src/build/
