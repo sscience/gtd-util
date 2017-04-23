@@ -10,22 +10,67 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel = "stylesheet" href = "http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.css">
 <!-- Custom CSS -->
-<!-- <link href="static/css/gtd-util.css"  rel="stylesheet" type="text/css"> -->
+<link href="static/css/gtd-util.css"  rel="stylesheet" type="text/css">
 
 <!-- D3 and nVD3 -->
 <script src = "http://d3js.org/d3.v3.js"></script>
 <script src = "http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.js"></script>
 
+
 <script>
-        d3.csv("static/data/afghanistan_gtd_grouped.csv",function(err,data){
+        // run filter.py to populate this //
+        d3.csv("afghanistan_gtd_grouped.csv",function(err,data){
         var chartColumns = ['kill_count', 'wounded_count']
+        var dataToPlot = Object.keys(data[0]).filter(function(k){return chartColumns.indexOf(k) >= 0})
+          .map(function(k){
+            return {"key":k,"values":data.map(function(d){
+             return {
+               "x":d3.time.format("%Y-%m-%d").parse(d.date),
+               "y":+d[k],
+               }
+            })}
+          })
+        nv.addGraph(function() {
+          var chart = nv.models.lineChart()
+            .useInteractiveGuideline(true)
+          ;
+
+        chart.xAxis
+          .tickFormat(function(d) {
+            return d3.time.format('%x')(new Date(d))
+        });
+
+
+        chart.yAxis
+          .axisLabel('Voltage (v)')
+          .tickFormat(d3.format('.02f'))
+        ;
+
+        chart.color(['red', 'black'])
+
+        d3.select('#chart1 svg')
+            .datum(dataToPlot)
+            .call(chart);
+
+          nv.utils.windowResize(chart.update);
+          return chart;
+        });
       })
+
 </script>
 
 </head>
 <body>
-    <div class="text-center">
-      <h1>Welcome!!!!</h1>
+      <h2>Kabul By The Numbers</h2>
+      <div class="p2">something happened!</div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8" id = "chart1">
+          <svg></svg>
+        </div>
+        <div class="col-sm-2">  </div>
     </div>
+    </div>
+    </section>
 </body>
 </html>
