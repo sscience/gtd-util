@@ -6,3 +6,4 @@ nginx:
     - "8002:80"
   volumes:
     - /www/static
+    - ./nginx/static:/var/www/html

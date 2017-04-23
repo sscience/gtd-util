@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1">
+<title>Linguistix Tank</title>
+<script src="http://d3js.org/d3.v3.js"></script>
+
+<!--  bootstrap and NVD3 CSS-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel = "stylesheet" href = "http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.css">
+<!-- Custom CSS -->
+<link href="static/css/gtd-util.css"  rel="stylesheet" type="text/css">
+
+<!-- D3 and nVD3 -->
+<script src = "http://d3js.org/d3.v3.js"></script>
+<script src = "http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.js"></script>
+
+
+<script>
+
+        // run filter.py to populate this //
+        d3.csv("static/data/afghanistan_gtd_grouped.csv",function(err,data){
+        var chartColumns = ['kill_count', 'wounded_count']
+        var dataToPlot = Object.keys(data[0]).filter(function(k){return chartColumns.indexOf(k) >= 0})
+          .map(function(k){
+            return {"key":k,"values":data.map(function(d){
+             return {
+               "x":d3.time.format("%Y-%m-%d").parse(d.date),
+               "y":+d[k],
+               }
+            })}
+          })
+        nv.addGraph(function() {
+          var chart = nv.models.lineChart()
+            .useInteractiveGuideline(true)
+          ;
+
+        chart.xAxis
+          .tickFormat(function(d) {
+            return d3.time.format('%x')(new Date(d))
+        });
+
+
+        chart.yAxis
+          .axisLabel('Voltage (v)')
+          .tickFormat(d3.format('.02f'))
+        ;
+
+        chart.color(['red', 'black'])
+
+
+
+        d3.select('#chart1 svg')
+            .datum(dataToPlot)
+            .call(chart);
+
+          nv.utils.windowResize(chart.update);
+          return chart;
+        });
+      })
+
+</script>
+
+<!--[if lt IE 9]>
+    <script src="js/respond-1.1.0.min.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/html5element.js"></script>
+<![endif]-->
+
+</head>
+<body>
+<!--Header_section-->
+	  <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        </div>
+	    <div id="main-nav" class="collapse navbar-collapse main-nav">
+			<ul class="nav navbar-nav" id="mainNav">
+  			  <li><a href="/#hero_section" class="scroll-link">Home</a></li>
+          <li><a href="/#aboutUs" class="scroll-link">About Us</a></li>
+  			  <li><a href="/#team" class="scroll-link">Team</a></li>
+  			  <li><a href="/#contact" class="scroll-link">Contact</a></li>
+      </div>
+	 </nav>
+
+    <section id="aboutUs">
+    <div class="inner_wrapper">
+      <h2>Kabul By The Numbers</h2>
+      <div class="p2">something happened !!</div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8" id = "chart1">
+          <svg></svg>
+        </div>
+        <div class="col-sm-2">  </div>
+
+    </div>
+    </div>
+    </section>
+
+    <div class="text-center">
+      <h1>Welcome!</h1>
+    </div>
+
+    <br>
+
+    <form action="/" method="POST">
+      <div class="form-group">
+        <input name="text" class="form-control input-lg" type="text" placeholder="Enter a message" required>
+      </div>
+      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+    </form>
+
+    <form action="/" method="POST">
+      <div class="form-group">
+        <input name="text" class="form-control input-lg" type="text" placeholder="=== INGEST DATA --- " required>
+      </div>
+      <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+    </form>
+
+    <br>
+    <hr>
+
+    <div>
+      {% for post in posts %}
+        <h4 class="well"><strong>{{post.text}}</strong> - <em>{{post.date_posted.strftime('%Y-%m-%d')}}</em></h4>
+      {% endfor %}
+    </div>
+
+
+</footer>
+
+</body>
+</html>
