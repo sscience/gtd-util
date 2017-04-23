@@ -4,25 +4,25 @@ build:
     environment:
       ENV: CI
     commands:
-      - echo "this is a go app  "
+      - echo "this is a go app"
     when:
       event:
         - push
 
-# publish:
-#   gcr:
-#     context: nginx
-#     debug: true
-#     file: nginx/Dockerfile
-#     registry: us.gcr.io
-#     repo: inspiring-cat-165403/nginx
-#     tag:
-#       - latest
-#       - $$COMMIT
-#     token: >
-#       $$GOOGLE_CREDENTIALS
-#     when:
-#       event: push
+publish:
+  gcr:
+    context: nginx
+    debug: true
+    file: nginx/Dockerfile
+    registry: us.gcr.io
+    repo: inspiring-cat-165403/nginx
+    tag:
+      - latest
+      - $$COMMIT
+    token: >
+      $$GOOGLE_CREDENTIALS
+    when:
+      event: push
 
 debug: true
 deploy:
