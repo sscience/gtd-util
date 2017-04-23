@@ -20,7 +20,7 @@ spec:
         - name: application
           image: {{.image}}
           ports:
-            - containerPort: 8000
+            - containerPort: 80
 
 ---
 apiVersion: autoscaling/v1
@@ -50,5 +50,5 @@ spec:
     env: {{.env}}
   ports:
     - port: 80
-      targetPort: 8000
+      targetPort: 80
       protocol: TCP
