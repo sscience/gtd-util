@@ -36,7 +36,7 @@ deploy:
     token: >
       $$GOOGLE_CREDENTIALS
     vars:
-      image: us.gcr.io/inspiring-cat-165403/nginx:$$COMMIT 
+      image: us.gcr.io/inspiring-cat-165403/nginx:latest
       app: gtd-util
       env: prd
       replicas: 2
