@@ -23,6 +23,7 @@ publish:
       $$GOOGLE_CREDENTIALS
     when:
       event: push
+      branch: master
 
 debug: true
 deploy:
@@ -47,6 +48,7 @@ deploy:
       cpu: 80
     when:
       event: push
+      branch: master
 
 spec:
   type: LoadBalancer
