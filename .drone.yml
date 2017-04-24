@@ -54,5 +54,5 @@ spec:
   ports:
     - name: http-web
       port: 80
-      targetPort: 8000
+      targetPort: 80
       protocol: TCP
