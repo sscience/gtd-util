@@ -31,7 +31,7 @@ deploy:
     image: nytimes/drone-gke
     zone: us-east1-c
     cluster: gtd-util
-    namespace: master
+    namespace: default
     verbose: true
     token: >
       $$GOOGLE_CREDENTIALS
