@@ -8,3 +8,36 @@ build:
     when:
       event:
         - push
+
+deploy:
+  gae:
+    environment:
+      BUILD_NUM: $$COMMIT
+      ENV_NAME: 'dev'
+    action: update
+    image: nytimes/drone-gae
+    project: &dev_project sudo-marketing
+    app_file: dev.yaml
+    version: "$$COMMIT"
+    token: >
+      $$GOOGLE_CREDENTIALS
+    ae_environment:
+      APP_NAME: gtd-util
+      APP_VERSION: "2.0.0"
+      ENV_NAME: 'dev'
+      MEMCACHE_HOST: google
+    when:
+      event: push
+      branch: feature/ae
+
+  gae:
+    image: nytimes/drone-gae
+    action: set_default_version
+    project: sudo-marketing
+    app_file: dev.yaml
+    version: "$$COMMIT"
+    token: >
+      $$GOOGLE_CREDENTIALS
+    when:
+      event: push
+      branch: feature/ae
