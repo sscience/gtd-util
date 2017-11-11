@@ -9,54 +9,44 @@ build:
       event:
         - push
 
-publish:
-  gcr:
-    context: nginx
-    debug: true
-    file: nginx/Dockerfile
-    registry: us.gcr.io
-    repo: inspiring-cat-165403/nginx
-    tag:
-      - latest
-      - $$COMMIT
-    token: >
-      $$GOOGLE_CREDENTIALS
-    when:
-      event: push
-      branch: master
+cache:
+  mount:
+    - /drone/.npm
+    - /drone/.pip
 
-debug: true
 deploy:
-  gke:
-    plugin_filter: nytimes
-    image: nytimes/drone-gke
-    zone: us-east1-c
-    cluster: gtd-util
-    namespace: default
-    verbose: true
+  ##################
+  # DEV ENVIRONMENT
+  ##################
+  gae:
+    environment:
+      BUILD_NUM: $$COMMIT
+      ENV_NAME: 'dev'
+    action: update
+    image: nytimes/drone-gae
+    project: &dev_project sudo-marketing
+    app_file: dev.yaml
+    version: "$$COMMIT"
     token: >
-      $$GOOGLE_CREDENTIALS
-    vars:
-      image: us.gcr.io/inspiring-cat-165403/nginx:$$COMMIT
-      token: >
-        $$GOOGLE_CREDENTIALS
-      app: gtd-util
-      env: prd
-      replicas: 2
-      replicas_min: 1
-      replicas_max: 3
-      cpu: 80
+      $$GOOGLE_CREDENTIALS_DEV
+    ae_environment:
+      APP_NAME: gtd-util
+      APP_VERSION: "2.0.0"
+      ENV_NAME: 'dev'
+      MEMCACHE_HOST: google
+      SEC_1: $$SEC_1
     when:
       event: push
       branch: master
 
-spec:
-  type: LoadBalancer
-  selector:
-    app: {{.app}}
-    env: {{.env}}
-  ports:
-    - name: http-web
-      port: 80
-      targetPort: 80
-      protocol: TCP
+  gae:
+    image: nytimes/drone-gae
+    action: set_default_version
+    project: sudo-marketing
+    app_file: dev.yaml
+    version: "$$COMMIT"
+    token: >
+      $$GOOGLE_CREDENTIALS
+    when:
+      event: push
+      branch: feature/ae
