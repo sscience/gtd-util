@@ -1,0 +1,41 @@
+
+# This file specifies your Python application's runtime configuration
+# including URL routing, versions, static file uploads, etc. See
+# https://developers.google.com/appengine/docs/python/config/appconfig
+# for details.
+
+runtime: python27
+api_version: 1
+threadsafe: true
+module: default
+
+instance_class: F2
+automatic_scaling:
+  min_idle_instances: 2
+  max_idle_instances: automatic  # default value
+  min_pending_latency: 30ms  # default value
+  max_pending_latency: automatic
+  max_concurrent_requests: 8
+
+# Handlers define how to route requests to your application.
+handlers:
+- url: /assets/(.*)
+  static_files: /nginx/static/assets/\1
+  upload: frontend/assets/(.*)
+  secure: always
+  login: required
+- url: /(.*)
+  static_files: /nginx/static/index.html
+  upload: flask_app/templates
+  secure: always
+  login: required
+
+
+libraries:
+- name: pycrypto
+  version: '2.6'
+- name: ssl
+  version: latest
+
+skip_files:
+- ^(node_modules/.*)

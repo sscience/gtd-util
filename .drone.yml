@@ -17,7 +17,7 @@ deploy:
     action: update
     image: nytimes/drone-gae
     project: &dev_project sudo-marketing
-    app_file: dev.yaml
+    app_file: app.yaml
     version: "$$COMMIT"
     token: >
       $$GOOGLE_CREDENTIALS
@@ -34,7 +34,7 @@ deploy:
     image: nytimes/drone-gae
     action: set_default_version
     project: sudo-marketing
-    app_file: dev.yaml
+    app_file: app.yaml
     version: "$$COMMIT"
     token: >
       $$GOOGLE_CREDENTIALS
