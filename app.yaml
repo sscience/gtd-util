@@ -19,17 +19,10 @@ automatic_scaling:
 
 # Handlers define how to route requests to your application.
 handlers:
-- url: /assets/(.*)
-  static_files: /nginx/static/assets/\1
-  upload: frontend/assets/(.*)
-  secure: always
-  login: required
 - url: /(.*)
-  static_files: /nginx/static/index.html
-  upload: flask_app/templates
+  static_files: nginx/static/index.html
+  upload: nginx/static
   secure: always
-  login: required
-
 
 libraries:
 - name: pycrypto

@@ -1,8 +1,0 @@
-nginx:
-  restart: always
-  build: ./nginx/
-  ports:
-    - "8000:80"
-  volumes:
-    - /www/static
-    - ./nginx/static:/var/www/html
