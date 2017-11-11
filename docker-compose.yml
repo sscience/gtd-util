@@ -1,9 +1,10 @@
 webpack:
-  build: ./frontend
+  build: ./watcher-app
   expose:
     - "3000"
   ports:
     - "3000:3000"
   volumes:
-    - ./frontend:/watcher-app
-  entrypoint: /watcher-app/watch.sh
+    - ./watcher-app/src:/watcher-app/src
+    - ./watcher-app/tasks:/watcher-app/tasks
+  entrypoint: gulp dev
