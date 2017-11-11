@@ -19,6 +19,10 @@ automatic_scaling:
 
 # Handlers define how to route requests to your application.
 handlers:
+- url: /static/afghanistan_gtd_grouped.csv
+  static_files: nginx/static/afghanistan_gtd_grouped.csv
+  upload: nginx/static
+  secure: always
 - url: /(.*)
   static_files: nginx/static/index.html
   upload: nginx/static

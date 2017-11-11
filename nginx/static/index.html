@@ -19,10 +19,12 @@
 
 <script>
         // run filter.py to populate this //
-        d3.csv("afghanistan_gtd_grouped.csv",function(err,data){
+        d3.csv("static/afghanistan_gtd_grouped.csv",function(err,data){
         var chartColumns = ['kill_count', 'wounded_count']
+        console.log('chartColumns:', chartColumns)
         var dataToPlot = Object.keys(data[0]).filter(function(k){return chartColumns.indexOf(k) >= 0})
           .map(function(k){
+            console.log('k: ',k)
             return {"key":k,"values":data.map(function(d){
              return {
                "x":d3.time.format("%Y-%m-%d").parse(d.date),
