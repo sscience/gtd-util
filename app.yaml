@@ -19,14 +19,23 @@ automatic_scaling:
 
 # Handlers define how to route requests to your application.
 handlers:
-- url: /static/afghanistan_gtd_grouped.csv
-  static_files: nginx/static/afghanistan_gtd_grouped.csv
-  upload: nginx/static
+# - url: /temp/(.*)
+#   static_files: temp
+#   upload: temp
+#   secure: always
+# - url: /static/afghanistan_gtd_grouped.csv
+#   static_files: static/afghanistan_gtd_grouped.csv
+#   upload: static
+#   secure: always
+- url: /assets/(.*)
+  static_files: temp/\1
+  upload: temp/(.*)
   secure: always
 - url: /(.*)
-  static_files: nginx/static/index.html
-  upload: nginx/static
+  static_files: temp/index.html
+  upload: static
   secure: always
+
 
 libraries:
 - name: pycrypto
